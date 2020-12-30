@@ -1,9 +1,11 @@
 .wrapper{
-    padding-top: 100px;
+    padding-top: 40px;
     max-width: 600px;
     width: 100%;
     margin: 0 auto;
     text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
 }
 
 .wrapper input{
@@ -50,7 +52,7 @@
     display: flex;
     justify-content: space-between;
     cursor: pointer;
-    text-decoration: line-through black;
+    text-decoration: line-through black 2px;
 }
 
 

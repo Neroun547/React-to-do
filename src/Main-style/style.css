@@ -17,3 +17,12 @@ body{
 li {
     list-style: none;
 }
+
+.logo-project{
+    text-align: center;
+    padding-top: 50px;
+    font-family: 'Lobster', cursive;
+    font-size: 28px;
+    color: #fff;
+    margin: 0 auto;
+}

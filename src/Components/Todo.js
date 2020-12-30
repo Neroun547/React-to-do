@@ -6,12 +6,15 @@ export default class Todo extends Component {
         super(props);
         this.state = {
             list: [],
-            inputVal: {}
+            inputVal: {},
+            input:''
         }
     }
 
     inputChange = (e) => {
+        console.log(this.state.input);
         this.setState(state => ({
+            input:e.target.value,
             inputVal: {
                 id: state.list.length,
                 text: e.target.value,
@@ -22,26 +25,26 @@ export default class Todo extends Component {
 
     formSubmit = (e) => {
         e.preventDefault();
-        if(document.getElementById('input').value === ''){
-            alert('Write text in input!');
-            return false;
+        if(this.state.input === ''){
+            alert('Input must have 1 or more symbols');
+            return;
         }
-        document.getElementById('input').value = '';
         this.setState(state => ({
             list: [...state.list, state.inputVal],
-            inputVal: {}
+            inputVal: {},
+            input:''
         }))
     }
 
-    checkItem = (e, checked) => {
-        this.setState(state => ({
-            list: state.list.filter((el) => {
-                if (el.id === e) {
-                    el.check = checked;
-                    return el;
-                }
+    checkItem = (e) => {
+        this.state.list.map((el) => {
+            if(el.id === e){
+                el.check = !el.check;
+                return;
             }
-            )
+        })
+        this.setState(state => ({
+            list: [...state.list]
         }))
     }
 
@@ -55,19 +58,26 @@ export default class Todo extends Component {
         return (
             <div className="wrapper">
                 <form onSubmit={this.formSubmit} >
-                    <input id='input' onChange={this.inputChange} />
+                    <input id='input' value={this.state.input} onChange={this.inputChange} />
                     <button type="submit">Add item</button>
                 </form>
                 <ul>
                     {this.state.list.map((el) => {
-                        if (el.check) {
-                            return <li key={el.id} onClick={() => this.checkItem(el.id, false)}
-                                className="item-check">{el.text}<span onClick={() => this.deleteItem(el.id)} >X</span></li>
-                        } else {
-                            return <li key={el.id} onClick={() => this.checkItem(el.id, true)}
-                                className="item-todo">{el.text}<span onClick={() => this.deleteItem(el.id)} >X</span></li>
+                        if(el.check){
+                            return (  
+                            <li className="item-check" key={el.id} onClick={() => this.checkItem(el.id) } >
+                                {el.text}
+                            <span onClick={ () => this.deleteItem(el.id)} >X</span></li>
+                            )
+                        }else{
+                            return (  
+                                <li className="item-todo" key={el.id} onClick={() => this.checkItem(el.id) } >
+                                    {el.text}
+                                <span onClick={ () => this.deleteItem(el.id)} >X</span></li>
+                                )
                         }
                     })}
+                    
                 </ul>
             </div>
         )
