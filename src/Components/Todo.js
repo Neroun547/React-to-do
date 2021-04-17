@@ -12,6 +12,7 @@ export default class Todo extends Component {
     }
 
     inputChange = (e) => {
+        console.log(1)
         this.setState(state => ({
             input:e.target.value,
             inputVal: {
